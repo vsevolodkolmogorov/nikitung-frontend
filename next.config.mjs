@@ -10,6 +10,7 @@ const nextConfig = {
     domains: ['localhost'],
     unoptimized: true,
   },
+  devIndicators: false
 }
 
 export default nextConfig
