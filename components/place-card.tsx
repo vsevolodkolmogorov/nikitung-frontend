@@ -34,6 +34,14 @@ export default function PlaceCard({ place, placeId }: PlaceCardProps) {
     }
   }
 
+  const getRatingColor = (score: number) => {
+    if (score >= 4) return "text-green-600 bg-green-50 border-green-200"
+    if (score >= 3) return "text-blue-600 bg-blue-50 border-blue-200"
+    if (score >= 2) return "text-yellow-600 bg-yellow-50 border-yellow-200"
+    if (score > 0) return "text-orange-600 bg-orange-50 border-orange-200"
+    return "text-gray-500 bg-gray-50 border-gray-200"
+  }
+
   return (
       <Card className="group hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 sm:hover:-translate-y-3 hover:scale-105 bg-gradient-to-br from-white via-cyan-50/30 to-blue-50/30 backdrop-blur-sm border-2 border-cyan-200/50 overflow-hidden rounded-3xl">
         {/* Enhanced Image Placeholder */}
@@ -43,9 +51,26 @@ export default function PlaceCard({ place, placeId }: PlaceCardProps) {
             🏊‍♂️
           </div>
 
+          {/* Rating Badge */}
+          {place.averageScore > 0 ? (
+              <div
+                  className={`absolute top-4 left-4 px-5 py-1 rounded-full border ${getRatingColor(place.averageScore)} flex items-center text-xs font-semibold`}
+              >
+                <Star className="w-3 h-3 mr-2 fill-current"/>
+                <span className="text-sm font-medium truncate">{place.averageScore.toFixed(1)}</span>
+              </div>
+            ) : (
+              <div
+                  className={`absolute top-4 left-4 px-3 py-1 rounded-full border ${getRatingColor(place.averageScore)} flex items-center text-xs font-semibold`}
+              >
+                <Star className="w-3 h-3 mr-2 fill-current"/>
+                <span className="text-sm font-small truncate">{"Без оценок"}</span>
+              </div>
+            )}
+
           {/* Floating decorative elements */}
           <div className="absolute top-4 right-4 opacity-30">
-            <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-cyan-500 animate-pulse" />
+            <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-cyan-500 animate-pulse"/>
           </div>
           <div className="absolute bottom-4 left-4 opacity-20">
             <div className="w-6 h-6 sm:w-8 sm:h-8 bg-white/50 rounded-full animate-float-slow"></div>

@@ -4,7 +4,7 @@ import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { LogOut, Menu, X, User } from "lucide-react"
+import { LogOut, Menu, X } from "lucide-react"
 import { useAuth } from "@/hooks/use-auth"
 
 export default function Header() {
@@ -42,15 +42,6 @@ export default function Header() {
             <nav className="hidden md:flex items-center space-x-3">
               {user ? (
                   <div className="flex items-center space-x-3">
-                    <Link href="/profile">
-                      <Button
-                          variant="ghost"
-                          className="text-cyan-700 hover:text-cyan-800 hover:bg-cyan-50/80 rounded-full transition-all duration-300 hover:scale-105 flex items-center space-x-2"
-                      >
-                        <User className="w-4 h-4" />
-                        <span className="hidden lg:inline">Профиль</span>
-                      </Button>
-                    </Link>
                     <div className="px-3 py-1 bg-gradient-to-r from-cyan-50 to-teal-50 rounded-full border border-cyan-200/50">
                       <span className="text-sm text-gray-600">Привет, {user.email.split("@")[0]}! 👋</span>
                     </div>
@@ -101,15 +92,6 @@ export default function Header() {
                       <div className="px-3 py-2 bg-gradient-to-r from-cyan-50 to-teal-50 rounded-lg border border-cyan-200/50">
                         <span className="text-sm text-gray-600">Привет, {user.email.split("@")[0]}! 👋</span>
                       </div>
-                      <Link href="/profile" onClick={() => setIsMobileMenuOpen(false)}>
-                        <Button
-                            variant="ghost"
-                            className="w-full justify-start text-cyan-700 hover:bg-cyan-50/80 rounded-lg h-12"
-                        >
-                          <User className="w-4 h-4 mr-2" />
-                          Профиль
-                        </Button>
-                      </Link>
                       <Button
                           variant="ghost"
                           onClick={() => {

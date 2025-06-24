@@ -77,14 +77,14 @@ export default function PlaceRatingChart({ ratings }: PlaceRatingChartProps) {
   }, [ratings])
 
   return (
-    <Card className="bg-white/50 border-cyan-100">
-      <CardContent className="p-6">
-        {ratings.length === 0 ? (
-          <p className="text-center text-gray-500">Нет оценок</p>
-        ) : (
-          <div ref={chartRef} className="space-y-4"></div>
-        )}
-      </CardContent>
-    </Card>
+      <Card className="bg-white/50 border-cyan-100">
+        <CardContent className="p-6">
+          {ratings.length === 0 ? (
+              <p className="text-center text-gray-500">Нет оценок</p>
+          ) : (
+              <div ref={chartRef} className="space-y-4"></div>
+          )}
+        </CardContent>
+      </Card>
   )
 }

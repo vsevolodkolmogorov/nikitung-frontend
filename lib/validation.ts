@@ -26,7 +26,7 @@ export const validation = {
     },
 
     placeTitle: {
-        minLength: 3,
+        minLength: 2,
         maxLength: 100,
         validate: (title: string) => {
             if (!title.trim()) return "Название места обязательно"
@@ -35,8 +35,6 @@ export const validation = {
             if (title.length > validation.placeTitle.maxLength)
                 return `Название не должно превышать ${validation.placeTitle.maxLength} символов`
             if (/^\d+$/.test(title.trim())) return "Название не может состоять только из цифр"
-            if (!/[a-zA-Zа-яА-Я]/.test(title)) return "Название должно содержать буквы"
-            if (title.trim().length === 1) return "Название слишком короткое"
             return null
         },
     },
@@ -51,25 +49,15 @@ export const validation = {
             if (location.length > validation.location.maxLength)
                 return `${fieldName} не должен превышать ${validation.location.maxLength} символов`
             if (/^\d+$/.test(location.trim())) return `${fieldName} не может состоять только из цифр`
-            if (!/[a-zA-Zа-яА-Я]/.test(location)) return `${fieldName} должен содержать буквы`
-            if (location.trim().length === 1) return `${fieldName} слишком короткий`
             return null
         },
     },
 
     description: {
-        minLength: 10,
         maxLength: 1000,
-        validate: (description: string, isRequired = false) => {
-            if (isRequired && !description.trim()) return "Описание обязательно"
-            if (description && description.trim().length > 0) {
-                if (description.trim().length < validation.description.minLength) {
-                    return `Описание должно содержать минимум ${validation.description.minLength} символов`
-                }
-                if (description.length > validation.description.maxLength) {
-                    return `Описание не должно превышать ${validation.description.maxLength} символов`
-                }
-                if (/^\d+$/.test(description.trim())) return "Описание не может состоять только из цифр"
+        validate: (description: string) => {
+            if (description && description.length > validation.description.maxLength) {
+                return `Описание не должно превышать ${validation.description.maxLength} символов`
             }
             return null
         },
@@ -90,17 +78,10 @@ export const validation = {
     },
 
     transportDescription: {
-        minLength: 5,
         maxLength: 300,
         validate: (description: string) => {
-            if (description && description.trim().length > 0) {
-                if (description.trim().length < validation.transportDescription.minLength) {
-                    return `Описание транспорта должно содержать минимум ${validation.transportDescription.minLength} символов`
-                }
-                if (description.length > validation.transportDescription.maxLength) {
-                    return `Описание транспорта не должно превышать ${validation.transportDescription.maxLength} символов`
-                }
-                if (/^\d+$/.test(description.trim())) return "Описание не может состоять только из цифр"
+            if (description && description.length > validation.transportDescription.maxLength) {
+                return `Описание транспорта не должно превышать ${validation.transportDescription.maxLength} символов`
             }
             return null
         },
@@ -114,9 +95,9 @@ export const validation = {
     },
 }
 
-// Утилита для очистки и нормализации текста
+// Утилита для очистки и нормализации текста (убираем лишние пробелы, но сохраняем обычные)
 export const sanitizeInput = (input: string): string => {
-    return input.trim().replace(/\s+/g, " ")
+    return input.replace(/\s+/g, " ").trim()
 }
 
 // Проверка на подозрительный контент

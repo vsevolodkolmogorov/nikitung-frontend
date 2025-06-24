@@ -25,7 +25,6 @@ interface InfrastructureFeature {
     label: string
 }
 
-
 export default function AddPlaceSection() {
     const { user, token } = useAuth()
     const [isExpanded, setIsExpanded] = useState(false)
@@ -109,7 +108,7 @@ export default function AddPlaceSection() {
                 error = validation.location.validate(value, "Город")
                 break
             case "description":
-                error = validation.description.validate(value, false)
+                error = validation.description.validate(value)
                 break
             case "accessZone":
                 error = validation.accessZone.validate(value)
@@ -128,13 +127,11 @@ export default function AddPlaceSection() {
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target
-        const sanitizedValue =
-            name === "description" || name === "publicTransportDescription" ? value : sanitizeInput(value)
 
-        setFormData((prev) => ({ ...prev, [name]: sanitizedValue }))
+        setFormData((prev) => ({ ...prev, [name]: value }))
 
         if (touched[name as keyof typeof touched]) {
-            validateField(name, sanitizedValue)
+            validateField(name, value)
         }
     }
 
@@ -195,7 +192,7 @@ export default function AddPlaceSection() {
                     validation.placeTitle.validate(formData.title) === null &&
                     validation.location.validate(formData.region, "Регион") === null &&
                     validation.location.validate(formData.city, "Город") === null &&
-                    validation.description.validate(formData.description, false) === null &&
+                    validation.description.validate(formData.description) === null &&
                     checkSuspiciousContent(formData.title) === null &&
                     checkSuspiciousContent(formData.region) === null &&
                     checkSuspiciousContent(formData.city) === null &&

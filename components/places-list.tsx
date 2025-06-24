@@ -83,6 +83,12 @@ export default function PlacesList() {
       case "city-desc":
         filtered.sort((a, b) => b.city.localeCompare(a.city))
         break
+      case "rating-desc":
+        filtered.sort((a, b) => b.averageScore - a.averageScore)
+        break
+      case "rating-asc":
+        filtered.sort((a, b) => a.averageScore - b.averageScore)
+        break
       default:
         // Keep original order
         break
@@ -217,6 +223,8 @@ export default function PlacesList() {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="default">По умолчанию</SelectItem>
+                      <SelectItem value="rating-desc">Лучшие оценки</SelectItem>
+                      <SelectItem value="rating-asc">Худшие оценки</SelectItem>
                       <SelectItem value="name-asc">Название А-Я</SelectItem>
                       <SelectItem value="name-desc">Название Я-А</SelectItem>
                       <SelectItem value="city-asc">Город А-Я</SelectItem>
