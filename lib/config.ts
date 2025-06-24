@@ -1,1 +1,1 @@
-export const BASE_URL = 'https://nikitung.loca.lt';
+export const BASE_URL = 'http://37.139.62.68:8080';

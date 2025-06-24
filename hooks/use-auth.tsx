@@ -1,6 +1,7 @@
 "use client"
 
 import { createContext, useState, useEffect, type ReactNode, useContext } from "react"
+import { BASE_URL } from '@/lib/config';
 
 interface User {
   id?: number
@@ -39,7 +40,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const fetchUserProfile = async (authToken: string) => {
     try {
-      const response = await fetch("http://localhost:8080/auth-service/auth/me", {
+      const response = await fetch(`${BASE_URL}/auth-service/auth/me`, {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },
@@ -64,7 +65,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const login = async (email: string, password: string): Promise<boolean> => {
     try {
-      const response = await fetch("http://localhost:8080/auth-service/auth/login", {
+      const response = await fetch(`${BASE_URL}/auth-service/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -88,7 +89,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const register = async (email: string, password: string): Promise<boolean> => {
     try {
-      const response = await fetch("http://localhost:8080/auth-service/auth/register", {
+      const response = await fetch(`${BASE_URL}/auth-service/auth/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
