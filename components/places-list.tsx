@@ -6,6 +6,7 @@ import { Loader2, Waves, Search, Filter, ArrowUpDown } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { BASE_URL } from '@/lib/config';
 
 interface Place {
   title: string
@@ -37,7 +38,7 @@ export default function PlacesList() {
 
   const fetchPlaces = async () => {
     try {
-      const response = await fetch("http://localhost:8080/place-service/place/with-average-score")
+      const response = await fetch(`${BASE_URL}/place-service/place/with-average-score`)
       if (!response.ok) {
         throw new Error("Не удалось загрузить места")
       }

@@ -6,6 +6,7 @@ import Image from "next/image"
 import Header from "@/components/header"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { BASE_URL } from '@/lib/config';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Loader2, MapPin, Star, ArrowLeft, Heart } from "lucide-react"
 import { useAuth } from "@/hooks/use-auth"
@@ -49,7 +50,7 @@ export default function PlaceDetailsPage() {
   const fetchComments = async () => {
     try {
       setLoadingComments(true)
-      const response = await fetch(`http://localhost:8080/comment-service/comment/getAllByPlaceId/${id}`)
+      const response = await fetch(`${BASE_URL}/comment-service/comment/getAllByPlaceId/${id}`)
       if (response.ok) {
         const data = await response.json()
         setComments(data)
@@ -64,7 +65,7 @@ export default function PlaceDetailsPage() {
   useEffect(() => {
     const fetchPlaceDetails = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/api/aggregated/places/${id}`)
+        const response = await fetch(`${BASE_URL}/api/aggregated/places/${id}`)
         if (!response.ok) {
           throw new Error("Не удалось загрузить информацию о месте")
         }

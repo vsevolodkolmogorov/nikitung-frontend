@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { useAuth } from "@/hooks/use-auth"
 import { useRouter } from "next/navigation"
 import { User, AlertCircle } from "lucide-react"
+import { BASE_URL } from '@/lib/config';
 import { validation, sanitizeInput, checkSuspiciousContent } from "@/lib/validation"
 
 interface Comment {
@@ -78,7 +79,7 @@ export default function CommentsList({ comments: initialComments, placeId }: Com
     setIsSubmitting(true)
 
     try {
-      const response = await fetch("http://localhost:8080/comment-service/comment", {
+      const response = await fetch(`${BASE_URL}/comment-service/comment`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -93,7 +94,7 @@ export default function CommentsList({ comments: initialComments, placeId }: Com
 
       if (response.ok) {
         // Refresh comments after successful submission
-        const commentsResponse = await fetch(`http://localhost:8080/comment-service/comment/getAllByPlaceId/${placeId}`)
+        const commentsResponse = await fetch(`${BASE_URL}/comment-service/comment/getAllByPlaceId/${placeId}`)
         if (commentsResponse.ok) {
           const updatedComments = await commentsResponse.json()
           setComments(updatedComments)

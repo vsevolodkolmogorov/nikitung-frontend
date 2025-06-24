@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Loader2, ArrowLeft, ArrowRight, Check, Waves, Sparkles } from "lucide-react"
 import { useAuth } from "@/hooks/use-auth"
 import RatingSlider from "@/components/rating-slider"
+import { BASE_URL } from '@/lib/config';
 
 interface PlaceBasic {
   title: string
@@ -74,7 +75,7 @@ export default function RatePlacePage() {
   useEffect(() => {
     const fetchPlaceBasic = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/api/aggregated/places/${placeId}`)
+        const response = await fetch(`${BASE_URL}/api/aggregated/places/${placeId}`)
         if (!response.ok) {
           throw new Error("Не удалось загрузить информацию о месте")
         }
@@ -162,7 +163,7 @@ export default function RatePlacePage() {
     setSubmitting(true)
 
     try {
-      const response = await fetch("http://localhost:8080/rating-service/rating/submit", {
+      const response = await fetch(`${BASE_URL}/rating-service/rating/submit`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

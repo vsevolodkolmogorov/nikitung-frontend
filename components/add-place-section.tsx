@@ -13,6 +13,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Plus, Check, Loader2, Heart, Sparkles, AlertCircle } from "lucide-react"
 import { validation, sanitizeInput, checkSuspiciousContent } from "@/lib/validation"
 import { useAuth } from "@/hooks/use-auth"
+import { BASE_URL } from '@/lib/config';
 
 interface AccessZone {
     value: string
@@ -77,8 +78,8 @@ export default function AddPlaceSection() {
         setLoadingOptions(true)
         try {
             const [zonesResponse, featuresResponse] = await Promise.all([
-                fetch("http://localhost:8080/place-service/place/access-zones-labeled"),
-                fetch("http://localhost:8080/place-service/place/infrastructure-features-labeled"),
+                fetch(`${BASE_URL}/place-service/place/access-zones-labeled`),
+                fetch(`${BASE_URL}/place-service/place/infrastructure-features-labeled`),
             ])
 
             if (zonesResponse.ok && featuresResponse.ok) {
@@ -253,7 +254,7 @@ export default function AddPlaceSection() {
         setSubmitting(true)
 
         try {
-            const response = await fetch("http://localhost:8080/place-service/place/create-with-rating", {
+            const response = await fetch(`${BASE_URL}/place-service/place/create-with-rating`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
